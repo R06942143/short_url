@@ -1,0 +1,37 @@
+<style>
+span {
+     cursor:pointer;
+     color:blue;
+     text-decoration:underline;
+	}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<form action="PayslipServlet" method="get">
+	Url:    <input type="text" name="url" id="url"><br/>
+	Url-shortener:<br> <span id="result"></span>
+	<br>
+	<input type="button" value="Submit" onClick="pr()">
+</form>
+
+<script>
+	function pr() {
+		var settings = {
+		"url": "https://cmm.ai/shorten/api/shorten",
+		"method": "POST",
+		"timeout": 0,
+		"headers": {
+			"accept": "application/json",
+			"Content-Type": "application/json"
+			},
+		"data": JSON.stringify({
+			"url": document.getElementById('url').value
+			}),
+		};
+
+		$.ajax(settings).done(function (response) {
+			console.log(response);
+			document.getElementById("result").innerHTML = "https://cmm.ai/shorten/" + response.short_link
+		});
+	}
+</script>
